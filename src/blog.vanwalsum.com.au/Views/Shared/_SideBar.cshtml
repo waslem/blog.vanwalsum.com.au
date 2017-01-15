@@ -1,0 +1,38 @@
+@model blog.vanwalsum.com.au.Models.PostViewModels.SideBarItems
+
+@if (Model.LatestPosts.Any())
+{
+<div>
+    Latest Posts
+    @foreach (var post in Model.LatestPosts)
+    {
+        <div>
+            <a asp-controller="Blog" asp-action="Detail" asp-route-id="@post.PostID">@post.PostHeader</a>
+        </div>
+    }
+</div>
+}
+@if (Model.Categories.Any())
+{
+    <div>
+        Categories
+        @foreach (var cat in Model.Categories)
+        {
+            <div>
+                <a asp-controller="Category" asp-action="Detail" asp-route-id="@cat">@cat</a>
+            </div>
+        }
+    </div>
+}
+@if (Model.Tags.Any())
+{
+    <div>
+        Tags
+        @foreach (var tag in Model.Tags)
+        {
+            <div>
+                <a asp-controller="Tag" asp-action="Detail" asp-route-id="@tag">@tag</a>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,87 @@
+﻿@model blog.vanwalsum.com.au.Models.PostViewModels.SideBarItems
+
+<div class="panel-group">
+    <div id="imaginary_container">
+        <div class="input-group stylish-input-group Search">
+            <input type="text" class="form-control " placeholder="Search...">
+            <span class="input-group-addon">
+                <button class="btn btn-default" type="submit">
+                    <span class="fa fa-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">About Me</div>
+        <div>
+            <img src="http://placehold.it/250x150" class="img-responsive">
+        </div>
+        <div class="panel-body">
+            <div>
+                Just another blog...
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.LatestPosts.Any())
+{
+
+<div class="panel-group" >    
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                Latest Posts
+            </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                @foreach (var post in Model.LatestPosts)
+                {
+                    @*<li class="list-group-item sideBarCategories"><a asp-controller="Blog" class="CategoryColor" asp-action="Detail" asp-route-id="@post.PostID">@post.PostHeader</a></li>*@
+                    <li class="list-group-item sideBarCategories"><a href="/Blog/@post.PostID/@post.PostSlug">@post.PostHeader</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+}
+@if (Model.Categories.Any())
+{
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Categories
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                @foreach (var cat in Model.Categories)
+                {
+                    <li class="list-group-item sideBarCategories"><a href="/Category/@cat">@cat</a></li>
+                    @*<li class="list-group-item sideBarCategories"><a asp-controller="Category" class="CategoryColor" asp-action="View" asp-route-id="@cat">@cat</a></li>*@
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+}
+@if (Model.Tags.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Tags
+        </div>
+        <div class="panel-body">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="label label-info"><a class="TagColour" href="/Tag/@tag">#@tag</a></span>
+                @*<span class="label label-info"><a asp-controller="Category" class="TagColour" asp-action="Get" asp-route-id="@tag">#@tag</a></span>*@
+
+            }
+        </div>
+
+    </div>
+}
