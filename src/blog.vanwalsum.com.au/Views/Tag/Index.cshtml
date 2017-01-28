@@ -1,13 +1,14 @@
-﻿@model blog.vanwalsum.com.au.Models.PostViewModels.PostDetailViewModel
-
+﻿@model List<blog.vanwalsum.com.au.Models.TagViewModels.TagSummaryViewModel>
+@{
+    ViewData["Title"] = "Tags";
+}
 
 <div class="row">
     <div class="col-md-12 ">
 
         <ol class="breadcrumb" style="margin-top:25px; background-color:inherit">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/Blog">Posts</a></li>
-            <li class="breadcrumb-item active">@Model.Title</li>
+            <li class="breadcrumb-item active"><a href="/Tag">Tags</a></li>
         </ol>
     </div>
     <div class="col-md-3">
@@ -17,7 +18,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        @Model.Contents
+            << tag overview here >>
     </div>
 
 </div>

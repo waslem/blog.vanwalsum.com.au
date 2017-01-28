@@ -86,17 +86,21 @@ namespace blog.vanwalsum.com.au
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //    name: "category",
-                //    template: "Category/{id?}",
-                //    defaults: new {controller = "Category", action="Detail"}
-                //    );
-                //routes.MapRoute(
-                //    name: "blog",
-                //    template: "Blog/{*slug}",
-                //    defaults: new { controller = "Blog", action = "Post" }
-                //    );
-
+                routes.MapRoute(
+                    name: "CategoryIndex",
+                    template: "Category",
+                    defaults: new { controller = "Category", action = "Index" }
+                    );
+                routes.MapRoute(
+                    name: "TagIndex",
+                    template: "Tag",
+                    defaults: new { controller = "Tag", action = "Index" }
+                    );
+                routes.MapRoute(
+                    name: "BlogIndex",
+                    template: "Blog",
+                    defaults: new { controller = "Blog", action = "Index" }
+                    );
                 routes.MapRoute(
                     name: "ViewPost", 
                     template: "Blog/{id}/{postName}",

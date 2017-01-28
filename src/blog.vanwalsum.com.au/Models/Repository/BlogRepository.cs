@@ -1,5 +1,7 @@
 ﻿using blog.vanwalsum.com.au.Data;
+using blog.vanwalsum.com.au.Models.CategoryViewModels;
 using blog.vanwalsum.com.au.Models.PostViewModels;
+using blog.vanwalsum.com.au.Models.TagViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,9 +19,86 @@ namespace blog.vanwalsum.com.au.Models.Repository
             this._context = context;
         }
 
+        internal object GetPostSummaries()
+        {
+            var posts = from p in _context.Posts
+                        select new PostSummaryViewModel()
+                        {
+                            ID = p.Id,
+                            Title = p.Title,
+                            ShortDescription = p.ShortDescription,
+                            Created = p.Created.ToString("dd/MM/yyyy"),
+                            WrittenBy = p.Owner.UserName,
+                            SummaryImageUrl = p.SummaryImageUrl,
+                            Slug = p.UrlSlug,
+                            CategoryName = p.Category.Name
+                        };
+            return posts.ToList();
+        }
+
+        public List<TagSummaryViewModel> GetTagSummary()
+        {
+            var tagSummary = from t in _context.Tags
+                             select new TagSummaryViewModel()
+                             {
+                                 TagName = t.Name,
+                                 TagImgUrl = t.UrlSlug
+                             };
+
+            return tagSummary.ToList();
+        }
+
+        internal PostDetailViewModel GetPostDetails(int? id, string postName)
+        {
+            if (id != null)
+            {
+                var postDetails = from p in _context.Posts.Where(p => p.Id == id)
+                                  select new PostDetailViewModel()
+                                  {
+                                      Contents = p.Contents,
+                                      Created = p.Created.ToString("dd/MM/yyyy"),
+                                      HeaderImgUrl = p.HeaderImageUrl,
+                                      Modified = (p.Modified != null) ? p.Modified.Value.ToString("dd/MM/yyyy") : null,
+                                      Title = p.Title,
+                                      UrlSlug = p.UrlSlug,
+                                      ID = p.Id
+                                  };
+
+                return postDetails.Single();
+            }
+            else
+            {
+                var postDetails = from p in _context.Posts.Where(p => p.Title == postName)
+                                  select new PostDetailViewModel()
+                                  {
+                                      Contents = p.Contents,
+                                      Created = p.Created.ToString("dd/MM/yyyy"),
+                                      HeaderImgUrl = p.HeaderImageUrl,
+                                      Modified = (p.Modified != null) ? p.Modified.Value.ToString("dd/MM/yyyy") : null,
+                                      Title = p.Title,
+                                      UrlSlug = p.UrlSlug,
+                                      ID = p.Id
+                                  };
+
+                return postDetails.Single();
+            }
+        }
+
         public List<Post> SelectAllPosts()
         {
             return _context.Posts.ToList();
+        }
+
+        public List<CategorySummaryViewModel> GetCategorySummary()
+        {
+            var categories = from c in _context.Categories
+                select new CategorySummaryViewModel()
+                {
+                     CategoryName = c.Name,
+                     CategoryImgUrl = c.UrlSlug
+                };
+
+            return categories.ToList();
         }
 
         public List<Post> SelectPostById()
@@ -95,7 +174,24 @@ namespace blog.vanwalsum.com.au.Models.Repository
 
         public List<PostSummaryViewModel> GetPostSummariesByCategory(string category)
         {
-            var posts = from p in _context.Posts.Where(p => p.Category.Name.ToUpper() == category.ToUpper())
+            if (category != null)
+            {
+                var postsByCat = from p in _context.Posts.Where(p => p.Category.Name.ToUpper() == category.ToUpper())
+                            select new PostSummaryViewModel()
+                            {
+                                ID = p.Id,
+                                Title = p.Title,
+                                ShortDescription = p.ShortDescription,
+                                Created = p.Created.ToString("dd/MM/yyyy"),
+                                WrittenBy = p.Owner.UserName,
+                                SummaryImageUrl = p.SummaryImageUrl,
+                                Slug = p.UrlSlug,
+                                CategoryName = p.Category.Name
+                            };
+                return postsByCat.ToList();
+            }
+
+            var posts = from p in _context.Posts
                         select new PostSummaryViewModel()
                         {
                             ID = p.Id,
@@ -108,12 +204,15 @@ namespace blog.vanwalsum.com.au.Models.Repository
                             CategoryName = p.Category.Name
                         };
             return posts.ToList();
+
         }
 
-        public List<PostSummaryViewModel> GetPostSummariesByTag(int TagId)
+        public List<PostSummaryViewModel> GetPostSummariesByTag(string TagId)
         {
+            int tagId = _context.Tags.FirstOrDefault(u => u.Name == TagId).Id;
+
             var posts = from p in _context.TagPosts.Include(p => p.Post)
-                        .Where(pt => pt.TagId == TagId)
+                        .Where(pt => pt.TagId == tagId)
                         .Select(p => p.Post)
                         select new PostSummaryViewModel()
                         {

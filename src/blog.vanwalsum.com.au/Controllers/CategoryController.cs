@@ -18,13 +18,15 @@ namespace blog.vanwalsum.com.au.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = _repo.GetCategorySummary();
+
+            return View(model);
         }
         
         public IActionResult Detail(String id)
         {
             var model = _repo.GetPostSummariesByCategory(id);
-
+            ViewData["Category"] = id;
             return View(model);
         }
     }

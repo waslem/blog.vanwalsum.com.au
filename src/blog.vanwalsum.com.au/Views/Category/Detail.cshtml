@@ -9,7 +9,7 @@
                 <ol class="breadcrumb" style="margin-top:25px; background-color:inherit">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="/Category">Categories</a></li>
-                    <li class="breadcrumb-item active">@Model.First().CategoryName</li>
+                    <li class="breadcrumb-item active">@ViewData["Category"]</li>
                 </ol>
     </div>
     <div class="col-md-3">
@@ -19,8 +19,10 @@
         </div>
     </div>
     <div class="col-md-9">
-        @foreach (var post in Model)
+        @if (Model.Count > 0)
         {
+            foreach (var post in Model)
+            {
             <div class="BlogEntry panel col-md-5">
                 <Div class="postTitle"><h2 class="text-center"><a href="/Blog/@post.ID/@post.Slug">@post.Title</a></h2></Div>
                 <div class="postSummaryImg"><img class="img-responsive" src="@post.SummaryImageUrl" /></div>
@@ -28,6 +30,12 @@
                 <div class="postSummary">@post.ShortDescription</div>
                 <div vlsdd="postMore"><a href="/Blog/@post.ID/@post.Slug" class="postMoreButton btn btn-success pull-right">More <i class="fa fa-angle-double-right"></i></a></div>
             </div>
+            }
+        }
+        else
+        {
+            <h2>No Posts with category @ViewData["Category"]!</h2>
+            <p></p>
         }
     </div>
 
