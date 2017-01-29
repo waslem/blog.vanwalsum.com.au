@@ -14,6 +14,7 @@ namespace blog.vanwalsum.com.au.Models.PostViewModels
         public String Modified { get; set; }
         public String Contents { get; set; }
         public String HeaderImgUrl { get; set; }
+        public String Author { get; set; }
 
     }
 }

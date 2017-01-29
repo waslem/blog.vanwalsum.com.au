@@ -61,7 +61,8 @@ namespace blog.vanwalsum.com.au.Models.Repository
                                       Modified = (p.Modified != null) ? p.Modified.Value.ToString("dd/MM/yyyy") : null,
                                       Title = p.Title,
                                       UrlSlug = p.UrlSlug,
-                                      ID = p.Id
+                                      ID = p.Id,
+                                      Author = p.Owner.UserName 
                                   };
 
                 return postDetails.Single();
@@ -77,7 +78,8 @@ namespace blog.vanwalsum.com.au.Models.Repository
                                       Modified = (p.Modified != null) ? p.Modified.Value.ToString("dd/MM/yyyy") : null,
                                       Title = p.Title,
                                       UrlSlug = p.UrlSlug,
-                                      ID = p.Id
+                                      ID = p.Id,
+                                      Author = p.Owner.UserName
                                   };
 
                 return postDetails.Single();

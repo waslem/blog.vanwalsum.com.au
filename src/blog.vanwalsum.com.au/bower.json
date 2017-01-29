@@ -2,12 +2,16 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.3.6",
+    "bootstrap": "3.3.7",
     "jquery": "2.2.3",
-    "jquery-validation": "1.14.0",
+    "jquery-validation": "1.16.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "bootstrap-tagsinput": "0.8.0",
-    "bootstrap-material-design": "0.5.9"
+    "bootstrap-material-design": "0.5.10",
+    "medium-editor": "5.16.1",
+    "medium-editor-insert-plugin": "2.4.0",
+    "medium-editor-tables": "0.6.1",
+    "medium-editor-autolist": "*"
   },
   "resolutions": {
     "jquery": ">= 1.7.2"

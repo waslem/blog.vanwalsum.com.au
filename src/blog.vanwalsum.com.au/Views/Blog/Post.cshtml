@@ -17,7 +17,18 @@
         </div>
     </div>
     <div class="col-md-9">
-        @Model.Contents
+        <div class="BlogEntry panel col-md-12">
+            <div class="PostTitle">
+                <h2>@Model.Title</h2>
+            </div>
+            <div class="PostAuthor">@Model.Created, By @Model.Author</div>
+            
+            <div class="PostImage">
+                <img src="@Model.HeaderImgUrl" alt="@Model.HeaderImgUrl" />
+            </div>
+            <div class="PostContents">
+                @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.Contents))
+            </div>
+        </div>
     </div>
-
 </div>

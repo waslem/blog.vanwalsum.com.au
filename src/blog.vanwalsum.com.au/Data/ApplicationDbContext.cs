@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using blog.vanwalsum.com.au.Models;
+using blog.vanwalsum.com.au.Models.Models;
 
 namespace blog.vanwalsum.com.au.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -18,7 +19,6 @@ namespace blog.vanwalsum.com.au.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
-
         public DbSet<TagPosts> TagPosts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
